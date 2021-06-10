@@ -13,7 +13,7 @@ export default function Card({ category, onClick, index }) {
     <TouchableOpacity style={styles.card} onPress={onClick}>
       <View style={styles.flex}>
         <Text style={styles.cardTitle}>{category}</Text>
-        <Text style={styles.index}>{index}</Text>
+        {/* <Text style={styles.index}>{index}</Text> */}
       </View>
     </TouchableOpacity>
   );

@@ -7,8 +7,8 @@ export default function Category({ onClick, data }) {
     <ScrollView style={styles.container}>
       {data.map((itm, index) => (
         <Card
-          onClick={() => onClick(itm.category)}
-          category={itm.category}
+          onClick={() => onClick(itm.type)}
+          category={itm.title}
           key={index}
           index={index + 1}
         />
@@ -20,5 +20,7 @@ export default function Category({ onClick, data }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // alignItems: "center",
+    backgroundColor: "#F0F8FF"
   },
 });
