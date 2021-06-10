@@ -1,11 +1,11 @@
-import { AsyncStorageStatic } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const answer =
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
 
 const tempData = [
     {
-        category: "Richard McClintock",
+        category: "Richard McClintock Naveen",
         qAndA: Array(10).fill({
             ques: "What is Lorem Ipsum? Why do we use it?",
             ans: answer,
@@ -50,12 +50,12 @@ const tempData = [
 export const getData = async (key) => {
     try {
         let data = await retrieveData(key)
-        if (data === false) {
+        if (data === null || data === undefined) {
             // Do APi call here
             data = tempData
             await storeData(key, tempData)
         }
-        return data
+        return data 
     } catch (error) {
         return []
     }
@@ -72,18 +72,23 @@ const storeData = async (key, value) => {
     try {
         await AsyncStorage.setItem(
             key,
-            value
+            JSON.stringify(value)
         );
     } catch (error) {
-        return false
+        console.log(err)
+        return null
     }
 };
 
 const retrieveData = async (key) => {
     try {
-        const value = await AsyncStorage.getItem(key);
+        let value = await AsyncStorage.getItem(key);
+        if (value !== null) {
+            value = JSON.parse(value)
+        }
         return value
     } catch (error) {
-        return false
+        console.log(err)
+        return null
     }
 };

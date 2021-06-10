@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
-import { Button, StyleSheet, Text, StatusBar, View, BackHandler } from "react-native";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  StatusBar,
+  View,
+  BackHandler,
+} from "react-native";
 import Category from "./src/component/category";
 import QuotesDisplayer from "./src/component/QuotesDisplayer";
 import TopBar from "./src/component/TopBar";
@@ -10,31 +16,28 @@ import {
   PublisherBanner,
   AdMobRewarded,
   setTestDeviceIDAsync,
-} from 'expo-ads-admob';
+} from "expo-ads-admob";
 import { db } from "./src/firebase-config";
-import { bannerAdId, interestialAdID } from './src/env'
-import { getData } from './src/services';
-
+import { bannerAdId, interestialAdID } from "./src/env";
+import { getData } from "./src/services";
 
 export default function App() {
   const [data, setData] = useState([]);
   const [motivationalData, setMotivationalData] = useState([]);
   const [selectedCategory, setSelectedCaetgory] = useState("");
-  const [showFullAd, setShowFullAd] = useState(false);
-
-   
-
+  const [showAd, setShowAd] = useState(false);
 
   const getApiData = async () => {
-    let data = await getData('AppData')
-    //  alert(JSON.parse(JSON.stringify(data)))
-    setData(JSON.parse(JSON.stringify(data)))
+    let data = await getData('@AppData')
+    setData(data)
   }
 
   const showInterestialOnLoad = async () => {
     await AdMobInterstitial.setAdUnitID(interestialAdID);
-    await AdMobInterstitial.requestAdAsync(); 
-    await AdMobInterstitial.addEventListener('interstitialDidFailToLoad',()=>{alert('failed')})
+    await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: true });
+    await AdMobInterstitial.addEventListener('interstitialDidClose', function(){
+       BackHandler.exitApp()
+    })
   }
 
   // const getApiResponse = async () => {
@@ -48,25 +51,14 @@ export default function App() {
 
   useEffect(() => {
     const backAction = async () => {
+      try {
+        if (await AdMobInterstitial.getIsReadyAsync()) {
+          await AdMobInterstitial.showAdAsync()
+        }
+      } catch (err) {
 
-    //  // alert(showFullAd)
-      if (!showFullAd) {
-        setShowFullAd(true)
-       // alert(showFullAd)
-        await AdMobInterstitial.getIsReadyAsync(async (data) => {
-          // alert(JSON.stringify(data))
-          if (data) {
-            await AdMobInterstitial.showAdAsync()
-          } else {
-            await BackHandler.exitApp()
-          }
-        })
-        return true
-      } else {
-        return false
       }
     };
-
 
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
@@ -88,9 +80,9 @@ export default function App() {
 
     return () => {
       backHandler.remove();
-    }
+      AdMobInterstitial.removeAllListeners();
+    };
   }, []);
-
 
   const handleCategory = (category) => {
     setSelectedCaetgory(category);
@@ -122,7 +114,10 @@ export default function App() {
       <AdMobBanner
         bannerSize="fullBanner"
         adUnitID={bannerAdId}
-        onDidFailToReceiveAdWithError={() => { alert('error') }} />
+        onDidFailToReceiveAdWithError={() => {
+          alert("error");
+        }}
+      />
     </View>
   );
 }
@@ -136,8 +131,6 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 15,
-    backgroundColor: "#fff",
+    backgroundColor: "#f4f4f4",
   },
 });
-
-

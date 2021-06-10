@@ -1,26 +1,26 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
 import Card from "./card";
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 
 export default function Category({ onClick, data }) {
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       {data.map((itm, index) => (
         <Card
           onClick={() => onClick(itm.type)}
           category={itm.title}
           key={index}
+          index={index + 1}
         />
       ))}
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
+    // alignItems: "center",
     backgroundColor: "#F0F8FF"
   },
 });
