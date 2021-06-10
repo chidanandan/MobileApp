@@ -21,7 +21,7 @@ export default function Card({ category, onClick }) {
 const styles = StyleSheet.create({
   card: {
     width: "95%",
-    backgroundColor: "#fff",
+    backgroundColor: "#F0F8FF",
     margin: 15,
     elevation: 5,
     justifyContent: "center",
@@ -31,5 +31,6 @@ const styles = StyleSheet.create({
   cardTitle: {
     textAlign: "center",
     margin: 10,
+    fontWeight: 'bold'
   },
 });

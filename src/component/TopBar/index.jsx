@@ -6,7 +6,7 @@ const TopBar = ({ onHomePress }) => {
   return (
     <View style={styles.appBar}>
       <TouchableOpacity onPress={onHomePress}>
-        <Text style={styles.title}>JavaScript</Text>
+        <Text style={styles.title}>Get Motivation</Text>
       </TouchableOpacity>
     </View>
   );
@@ -21,5 +21,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    padding: 8
+  },
+  title: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 24,
   }
 });

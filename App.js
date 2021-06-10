@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
+import axios from 'axios';
 import { Button, StyleSheet, Text, StatusBar, View, BackHandler } from "react-native";
 import Category from "./src/component/category";
-import QuestionsDisplayer from "./src/component/QuestionsDisplayer";
+import QuotesDisplayer from "./src/component/QuotesDisplayer";
 import TopBar from "./src/component/TopBar";
 import {
   AdMobBanner,
@@ -17,8 +18,12 @@ import { getData } from './src/services';
 
 export default function App() {
   const [data, setData] = useState([]);
+  const [motivationalData, setMotivationalData] = useState([]);
   const [selectedCategory, setSelectedCaetgory] = useState("");
-  const [showFullAd, setShowFullAd] = useState(false)
+  const [showFullAd, setShowFullAd] = useState(false);
+
+   
+
 
   const getApiData = async () => {
     let data = await getData('AppData')
@@ -31,6 +36,15 @@ export default function App() {
     await AdMobInterstitial.requestAdAsync(); 
     await AdMobInterstitial.addEventListener('interstitialDidFailToLoad',()=>{alert('failed')})
   }
+
+  // const getApiResponse = async () => {
+  //   let data = await axios.get('https://jsonmock.hackerrank.com/api/countries?page=1');
+  //   data = data && data.data;
+  //   setMotivationalData(data);
+  // }
+
+  console.log('motivationalData: ', motivationalData)
+
 
   useEffect(() => {
     const backAction = async () => {
@@ -59,6 +73,16 @@ export default function App() {
       backAction
     );
 
+    const dbRefObj = db.ref().child('data');
+    dbRefObj.on('value', snap => {
+      let data = snap.val();
+  console.log('motivationalData: ', data);
+
+      setMotivationalData(data);
+    });
+
+    // getApiResponse();
+
     getApiData();
     showInterestialOnLoad();
 
@@ -71,8 +95,6 @@ export default function App() {
   const handleCategory = (category) => {
     setSelectedCaetgory(category);
   };
-
-
 
   return (
     <View style={styles.container}>
@@ -87,14 +109,14 @@ export default function App() {
       />
       <View style={styles.content}>
         {selectedCategory ? (
-          <QuestionsDisplayer
+          <QuotesDisplayer
             data={
-              data?.filter((itm) => itm.category === selectedCategory)[0]
+              motivationalData?.filter((itm) => itm.type === selectedCategory)
             }
             onBackPress={() => setSelectedCaetgory("")}
           />
         ) : (
-          <Category onClick={handleCategory} data={data} />
+          <Category onClick={handleCategory} data={motivationalData} />
         )}
       </View>
       <AdMobBanner
@@ -108,7 +130,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#efd81d",
+    backgroundColor: "#252c9d",
     // alignItems: 'center',
     // justifyContent: 'center',
   },
