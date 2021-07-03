@@ -7,32 +7,92 @@ import {
   View,
   BackHandler,
 } from "react-native";
-import Category from "./src/component/category";
+import Category from "./src/component/Category";
 import QuotesDisplayer from "./src/component/QuotesDisplayer";
 import TopBar from "./src/component/TopBar";
 import {
   AdMobBanner,
   AdMobInterstitial,
-  PublisherBanner,
-  AdMobRewarded,
-  setTestDeviceIDAsync,
+  // PublisherBanner,
+  // AdMobRewarded,
+  // setTestDeviceIDAsync,
 } from "expo-ads-admob";
 import { db } from "./src/firebase-config";
-import { bannerAdId, interestialAdID } from "./src/env";
-import { getData } from "./src/services";
+// import { bannerAdId, interestialAdID } from "./src/env";
+import constants from './src/utilities/constants';
+import { storeData, retrieveData, clearAllData } from "./src/services";
 
 export default function App() {
-  const [data, setData] = useState([]);
   const [motivationalData, setMotivationalData] = useState([]);
   const [selectedCategory, setSelectedCaetgory] = useState("");
+  const [appVersion, setAppVersion] = useState("");
+  const [adUnits, setAdUnits] = useState(false);
   const [showAd, setShowAd] = useState(false);
 
-  const getApiData = async () => {
-    let data = await getData('@AppData')
-    setData(data)
+  const bannerAdId = __DEV__ ? adUnits.devBannerId : adUnits.prodBannerId;
+
+  const getDataFromStorage = async () => {
+    let motData = await retrieveData(constants.MOTIVATIONAL_QUOTES);
+    let adData = await retrieveData(constants.AD_UNITS);
+    if (adData) {
+      setAdUnits(adData);
+    }
+    if (motData) {
+      setMotivationalData(motData);
+    }
+    return data;
+  }
+
+  const getQuotesFromApi = () => {
+    const dbRefObj = db.ref().child(constants.MOTIVATIONAL_QUOTES);
+    dbRefObj.on('value', snap => {
+      let data = snap.val();
+      setMotivationalData(data);
+      storeData(constants.MOTIVATIONAL_QUOTES, data);
+    });
+  };
+
+  const getAdUnitsApi = () => {
+    const dbRefObj = db.ref().child(constants.AD_UNITS);
+    dbRefObj.on('value', snap => {
+      let data = snap.val();
+      setAdUnits(data);
+      storeData(constants.AD_UNITS, data);
+    });
+  };
+
+  const getAppVersionFromApi = async () => {
+    const dbRefObj = db.ref().child(constants.APP_VERSION);
+    let localVersion = await retrieveData(constants.APP_VERSION);
+    dbRefObj.on('value', snap => {
+      let data = snap.val();
+      if(localVersion !== data.version) {
+        storeData(constants.APP_VERSION, data.version)
+        getQuotesFromApi();
+      } else {
+    
+      }
+      setAppVersion(data);
+    });
+  };
+
+  const getAdUnitVersion = async () => {
+    const dbRefObj = db.ref().child(constants.AD_UNIT_VERSION);
+    let localVersion = await retrieveData(constants.AD_UNIT_VERSION);
+    dbRefObj.on('value', snap => {
+      let data = snap.val();
+      if(localVersion !== data.version) {
+        storeData(constants.AD_UNIT_VERSION, data.version);
+        getAdUnitsApi();
+      } else {
+    
+      }
+      setAppVersion(data);
+    });
   }
 
   const showInterestialOnLoad = async () => {
+    const interestialAdID = __DEV__ ? adUnits.devInterstitialId : adUnits.prodInterstitialId;
     await AdMobInterstitial.setAdUnitID(interestialAdID);
     await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: true });
     await AdMobInterstitial.addEventListener('interstitialDidClose', function(){
@@ -46,10 +106,12 @@ export default function App() {
   //   setMotivationalData(data);
   // }
 
-  console.log('motivationalData: ', motivationalData)
-
-
   useEffect(() => {
+    // clearAllData();
+    getAppVersionFromApi();
+    getAdUnitVersion();
+    getDataFromStorage();
+
     const backAction = async () => {
       try {
         if (await AdMobInterstitial.getIsReadyAsync()) {
@@ -65,19 +127,6 @@ export default function App() {
       backAction
     );
 
-    const dbRefObj = db.ref().child('data');
-    dbRefObj.on('value', snap => {
-      let data = snap.val();
-  console.log('motivationalData: ', data);
-
-      setMotivationalData(data);
-    });
-
-    // getApiResponse();
-
-    getApiData();
-    showInterestialOnLoad();
-
     return () => {
       backHandler.remove();
       AdMobInterstitial.removeAllListeners();
@@ -88,6 +137,13 @@ export default function App() {
     setSelectedCaetgory(category);
   };
 
+  useEffect(() => {
+    if (adUnits) {
+      showInterestialOnLoad();
+    }
+
+  }, [adUnits]);
+
   return (
     <View style={styles.container}>
       <View
@@ -95,11 +151,11 @@ export default function App() {
           height: StatusBar.currentHeight,
         }}
       />
-      <TopBar
+     {!selectedCategory ? <TopBar
         onHomePress={() => setSelectedCaetgory("")}
         showBack={!!selectedCategory}
-      />
-      <View style={styles.content}>
+      /> : null}
+      {motivationalData && motivationalData.length ? <View style={styles.content}>
         {selectedCategory ? (
           <QuotesDisplayer
             data={
@@ -110,14 +166,14 @@ export default function App() {
         ) : (
           <Category onClick={handleCategory} data={motivationalData} />
         )}
-      </View>
-      <AdMobBanner
+      </View> : null}
+      {adUnits && <AdMobBanner
         bannerSize="fullBanner"
         adUnitID={bannerAdId}
         onDidFailToReceiveAdWithError={() => {
           alert("error");
         }}
-      />
+      />}
     </View>
   );
 }
@@ -125,9 +181,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#252c9d",
-    // alignItems: 'center',
-    // justifyContent: 'center',
+    backgroundColor: "#D32F2F"
   },
   content: {
     flex: 15,

@@ -68,7 +68,7 @@ export const getData = async (key) => {
  *  common method localstorage 
  * 
  */
-const storeData = async (key, value) => {
+export const storeData = async (key, value) => {
     try {
         await AsyncStorage.setItem(
             key,
@@ -80,7 +80,7 @@ const storeData = async (key, value) => {
     }
 };
 
-const retrieveData = async (key) => {
+export const retrieveData = async (key) => {
     try {
         let value = await AsyncStorage.getItem(key);
         if (value !== null) {
@@ -92,3 +92,7 @@ const retrieveData = async (key) => {
         return null
     }
 };
+
+export const clearAllData = async () => {
+    AsyncStorage.clear();
+}
