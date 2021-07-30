@@ -1,0 +1,235 @@
+{
+  "adUnitVersion" : {
+    "version" : 1.0,
+    "placementPosition": 4
+  },
+  "adUnits" : {
+    "devBannerId" : "ca-app-pub-3940256099942544/6300978111",
+    "devInterstitialId" : "ca-app-pub-3940256099942544/1033173712",
+    "prodBannerId" : "ca-app-pub-9622556718664753/6716908160",
+    "prodInterstitialId" : "ca-app-pub-9622556718664753/4785907067"
+  },
+  "appVersion" : {
+    "version" : 3
+  },
+  "motivationalQuotes" : [ {
+    "quotes" : [ {
+      "author" : " – Walt Disney",
+      "quote" : "“All our dreams can come true, if we have the courage to pursue them.”"
+    }, {
+      "author" : " – Mark Twain",
+      "quote" : "“The secret of getting ahead is getting started.”"
+    }, {
+      "author" : " – Michael Jordan",
+      "quote" : "“I’ve missed more than 9,000 shots in my career. I’ve lost almost 300 games. 26 times I’ve been trusted to take the game winning shot and missed. I’ve failed over and over and over again in my life and that is why I succeed.”"
+    }, {
+      "author" : " – Mary Kay Ash",
+      "quote" : "“Don’t limit yourself. Many people limit themselves to what they think they can do. You can go as far as your mind lets you. What you believe, remember, you can achieve.”"
+    }, {
+      "author" : " – Chinese Proverb",
+      "quote" : "“The best time to plant a tree was 20 years ago. The second best time is now.”"
+    }, {
+      "author" : " – Andy Grove",
+      "quote" : "“Only the paranoid survive.”"
+    }, {
+      "author" : " – Babe Ruth",
+      "quote" : "“It’s hard to beat a person who never gives up.”"
+    }, {
+      "author" : " – Leah Busque",
+      "quote" : "“I wake up every morning and think to myself, ‘how far can I push this company in the next 24 hours.’”"
+    }, {
+      "author" : " – Michele Ruiz",
+      "quote" : "“If people are doubting how far you can go, go so far that you can’t hear them anymore.”"
+    }, {
+      "author" : " – Arianna Huffington",
+      "quote" : "“We need to accept that we won’t always make the right decisions, that we’ll screw up royally sometimes – understanding that failure is not the opposite of success, it’s part of success.”"
+    }, {
+      "author" : " – Joss Whedon",
+      "quote" : "“Write it. Shoot it. Publish it. Crochet it, sauté it, whatever. MAKE.”"
+    } ],
+    "title" : "Motivational quotes for Entrepreneurs",
+    "type" : "entrepreneurs",
+    "imageUrl": "https://res.cloudinary.com/chidu/image/upload/q_29/v1625389683/motivation-categories%20/cat_dark_entrepreneurs_tcl4oc.jpg"
+  }, {
+    "quotes" : [ {
+      "author" : " – Aristotle",
+      "quote" : "“We are what we repeatedly do. Excellence, then, is not an act, but a habit.”"
+    }, {
+      "author" : " – Sheryl Sandberg",
+      "quote" : "“If you’re offered a seat on a rocket ship, don’t ask what seat! Just get on.”"
+    }, {
+      "author" : " – Marissa Mayer",
+      "quote" : "“I always did something I was a little not ready to do. I think that’s how you grow. When there’s that moment of ‘Wow, I’m not really sure I can do this,’ and you push through those moments, that’s when you have a breakthrough.”"
+    }, {
+      "author" : " – Anne Frank",
+      "quote" : "“How wonderful it is that nobody need wait a single moment before starting to improve the world.”"
+    }, {
+      "author" : " – Michael Jordan",
+      "quote" : "“Some people want it to happen, some wish it would happen, others make it happen.”"
+    }, {
+      "author" : " – Vincent Van Gogh",
+      "quote" : "“If you hear a voice within you say ‘you cannot paint,’ then by all means paint and that voice will be silenced.”"
+    }, {
+      "author" : " – Vincent Van Gogh",
+      "quote" : "“Great things are done by a series of small things brought together”"
+    }, {
+      "author" : " – Simon Sinek",
+      "quote" : "“If you hire people just because they can do a job, they’ll work for your money. But if you hire people who believe what you believe, they’ll work for you with blood and sweat and tears.”"
+    }, {
+      "author" : " – A.C. Benson",
+      "quote" : "“Very often, a change of self is needed more than a change of scene.”"
+    }, {
+      "author" : " – Stanley McChrystal",
+      "quote" : "“Leaders can let you fail and yet not let you be a failure.”"
+    }, {
+      "author" : " – Lou Holtz",
+      "quote" : "“It’s not the load that breaks you down, it’s the way you carry it.”"
+    } ],
+    "title" : "Motivational quotes for Employees",
+    "type" : "employees",
+    "imageUrl": "https://res.cloudinary.com/chidu/image/upload/q_21/v1625389674/motivation-categories%20/cat_dark_employees_xllqok.jpg"
+  }, {
+    "quotes" : [ {
+      "author" : " – Katharine Hepburn",
+      "quote" : "“If you obey all the rules, you miss all the fun.”"
+    }, {
+      "author" : " – Herb Brooks",
+      "quote" : "“You were born to be a player. You were meant to be here. This moment is yours.”"
+    }, {
+      "author" : " – Yuri Kochiyama",
+      "quote" : "“Life is not what you alone make it. Life is the input of everyone who touched your life and every experience that entered it. We are all part of one another.”"
+    }, {
+      "author" : " – Abraham Lincoln",
+      "quote" : "“When you reach the end of your rope, tie a knot and hang out.”"
+    }, {
+      "author" : " – Mark Twain",
+      "quote" : "“Never regret anything that made you smile.”"
+    }, {
+      "author" : " – Eleanor Roosevelt",
+      "quote" : "“You must do the thing you think you cannot do.”"
+    }, {
+      "author" : " – Buddha",
+      "quote" : "“If you want to fly give up everything that weighs you down.”"
+    }, {
+      "author" : " – Suzy Kassem",
+      "quote" : "“Doubt kills more dreams than failure ever will.”"
+    }, {
+      "author" : " – Nelson Mandela",
+      "quote" : "“I never lose. Either I win or learn.”"
+    }, {
+      "author" : " – Ken Poirot",
+      "quote" : "“Today is your opportunity to build the tomorrow you want.”"
+    }, {
+      "author" : " – C.S. Lewis",
+      "quote" : "“Getting over a painful experience is much like crossing the monkey bars. You have to let go at some point in order to move forward.”"
+    } ],
+    "title" : "Motivational Quotes for Life",
+    "type" : "life",
+    "imageUrl": "https://res.cloudinary.com/chidu/image/upload/q_26/v1625389672/motivation-categories%20/cat_dark_life_bbrxbg.jpg"
+  }, {
+    "quotes" : [ {
+      "author" : " – Oprah Winfrey",
+      "quote" : "“On my own I will just create and if it works, it works. And if it doesn’t, I’ll just create something else. I don’t have any limitations on what I think I could do or be.”"
+    }, {
+      "author" : " – Malala Yousafzai",
+      "quote" : "“We realize the importance of our voices only when we are silenced.”"
+    }, {
+      "author" : " – Arianna Huffington",
+      "quote" : "“We need to accept that we won’t always make the right decisions, that we’ll screw up royally sometimes – understanding that failure is not the opposite of success, it’s part of success.”"
+    }, {
+      "author" : " – Janis Joplin",
+      "quote" : "“Don’t compromise yourself. You’re all you’ve got.”"
+    }, {
+      "author" : " – Sara Blakely",
+      "quote" : "“When something I can’t control happens, I ask myself: Where is the hidden gift? Where is the positive in this?”"
+    }, {
+      "author" : " – Jennifer Lopez",
+      "quote" : "“Doubt is a killer. You just have to know who you are and what you stand for.“"
+    }, {
+      "author" : " – Judy Garland",
+      "quote" : "“Be a first rate version of yourself, not a second rate version of someone else.”"
+    }, {
+      "author" : " – Eleanor Roosevelt",
+      "quote" : "“Learn from the mistakes of others. You can’t live long enough to make them all yourself.”"
+    }, {
+      "author" : " – Joan Rivers",
+      "quote" : "“I was smart enough to go through any door that opened.”"
+    }, {
+      "author" : " – Sheryl Sandberg",
+      "quote" : "“Done is better than perfect.”"
+    } ],
+    "title" : "Motivational Quotes for Women",
+    "type" : "women",
+    "imageUrl": "https://res.cloudinary.com/chidu/image/upload/q_29/v1625389687/motivation-categories%20/cat_dark_women_l9mzsr.jpg"
+  }, {
+    "quotes" : [ {
+      "author" : " – Richard Branson",
+      "quote" : "“If your dreams don’t scare you, they are too small.”"
+    }, {
+      "author" : " – Ken Poirot",
+      "quote" : "“Today is your opportunity to build the tomorrow you want.”"
+    }, {
+      "author" : " – Rumi",
+      "quote" : "“What hurts you blesses you.”"
+    }, {
+      "author" : " – Unknown",
+      "quote" : "“Nothing is stronger than a broken man rebuilding himself.”"
+    }, {
+      "author" : " – Kendrick Lamar",
+      "quote" : "“I always thought it was me against the world and then one day I realized it’s just me against me.”"
+    }, {
+      "author" : " – Richard Nixon",
+      "quote" : "“A man is not finished when he is defeated. He is finished when he quits.” "
+    }, {
+      "author" : " – Paulo Coelho",
+      "quote" : "“The world is changed by your example, not by your opinion.”"
+    }, {
+      "author" : " – Dhirubhai Ambani",
+      "quote" : "“If you don’t build your dream, someone else will hire you to help them build theirs.”"
+    }, {
+      "author" : " – Bruce Lee",
+      "quote" : "“I’m not in this world to live up to your expectations and you’re not in this world to live up to mine.”"
+    }, {
+      "author" : " – Robin Williams",
+      "quote" : "“What’s right is what’s left if you do everything else wrong.”"
+    } ],
+    "title" : "Motivational Quotes for Men",
+    "type" : "men",
+    "imageUrl": "https://res.cloudinary.com/chidu/image/upload/q_33/v1625389690/motivation-categories%20/cat_dark_men_wqtwf5.jpg"
+  }, {
+    "quotes" : [ {
+      "author" : " – Mufti Menk",
+      "quote" : "“I really appreciate people who correct me, because without them, I might have been repeating mistakes for a long time.”"
+    }, {
+      "author" : " – Sheryl Sandberg",
+      "quote" : "“Motivation comes from working on things we care about.”"
+    }, {
+      "author" : " – David A. Bednar",
+      "quote" : "“If today you are a little bit better than you were yesterday, then that’s enough.”"
+    }, {
+      "author" : " – Nelson Mandela",
+      "quote" : "“Education is the most powerful weapon which you can use to change the world.”"
+    }, {
+      "author" : "  – Marva Collin",
+      "quote" : "“If you can’t make a mistake you can’t make anything.”"
+    }, {
+      "author" : " – Unknown",
+      "quote" : "“Practice makes progress not perfect.”"
+    }, {
+      "author" : " – Beverly Sills",
+      "quote" : "“You may be disappointed if you fail, but you’ll be doomed if you don’t try.”"
+    }, {
+      "author" : " – Walter Brunell",
+      "quote" : "“Failure is the tuition you pay for success.”"
+    }, {
+      "author" : " – Lemony Snicket",
+      "quote" : "“If we wait until we’re ready, we’ll be waiting for the rest of our lives.”"
+    }, {
+      "author" : " – William Arthur Ward",
+      "quote" : "“Study while others are sleeping; work while others are loafing; prepare while others are playing; and dream while others are wishing.”"
+    } ],
+    "title" : "Motivational Quotes for Students",
+    "type" : "students",
+    "imageUrl": "https://res.cloudinary.com/chidu/image/upload/q_25/v1625389684/motivation-categories%20/cat_dark_students_m0vepg.jpg"
+  } ]
+}

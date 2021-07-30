@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import AppLoading from 'expo-app-loading';
 import { Dimensions } from 'react-native';
 import { useFonts } from 'expo-font';
@@ -8,20 +8,36 @@ import {
   Text,
   TouchableOpacity,
   View,
-  ImageBackground
+  ImageBackground,
+  Image,
+  BackHandler
 } from "react-native";
+import {
+  AdMobBanner,
+  AdMobInterstitial
+} from "expo-ads-admob";
 const bg1 = require('./images/bg1.jpeg');
 const bg2 = require('./images/bg2.jpeg');
 const bg3 = require('./images/bg3.jpeg');
 const bg4 = require('./images/bg4.jpeg');
 const bg5 = require('./images/bg5.jpeg');
+const backIcon = require('./../../../assets/arrow-1.png');
 
-const QuotesDisplayer = ({ data, onBackPress }) => {
+const QuotesDisplayer = ({ data, onBackPress, bannerAdId, adUnits, adUnitPlacement }) => {
   let [fontsLoaded] = useFonts({
     'mesmerize-bk-it': require('./../../../assets/fonts/mesmerize-bk-it.ttf'),
   });
   let quotesData = data && data[0];
   let counter = 0;
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+    return(() => {
+      BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+
+    });
+  }, []);
 
   if (!fontsLoaded) {
     return <AppLoading />;
@@ -30,9 +46,13 @@ const QuotesDisplayer = ({ data, onBackPress }) => {
     <View>
       <View style={styles.categoryContain}>
         <TouchableOpacity onPress={onBackPress}>
-          <Text style={styles.nav}>Back</Text>
+          {/* <Text style={styles.nav}>Back</Text> */}
+          <Image
+        style={styles.nav}
+        source={backIcon} />
         </TouchableOpacity>
         {/* <Text style={styles.category}>{quotesData?.title}</Text> */}
+      
       </View>
       <ScrollView style={styles.quotesContainer}>
         {quotesData?.quotes?.map((item, key) => {
@@ -71,6 +91,13 @@ const QuotesDisplayer = ({ data, onBackPress }) => {
                 <Text style={styles.author}>{item.author}</Text>
               </Text>
             </ImageBackground>
+            {adUnits && ((key+1) % adUnitPlacement === 0) && <AdMobBanner
+        bannerSize="fullBanner"
+        adUnitID={bannerAdId}
+        onDidFailToReceiveAdWithError={() => {
+          alert("error");
+        }}
+      />}
           </View>
         )}
         )}
@@ -100,12 +127,18 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   nav: {
-    fontSize: 14,
-    color: 'white',
-    fontFamily: "Roboto",
-    fontWeight: "bold",
-    padding: 8,
-    lineHeight: 16,
+    // fontSize: 14,
+    // color: 'white',
+    // fontFamily: "Roboto",
+    // fontWeight: "bold",
+    // padding: 8,
+    // marginTop: 8,
+    // width: '200%',
+    // marginLeft: 10,
+    // lineHeight: 16,
+    // height: 20,
+    marginTop: 8,
+    marginLeft: 8
   },
   categoryContain: {
     flexDirection: "row",
@@ -124,7 +157,7 @@ const styles = StyleSheet.create({
     fontStyle: 'italic'
   },
   quotesContainer: {
-      marginBottom: 40,
+      marginBottom: 20,
       backgroundColor: "rgba(8, 8, 8, 0.8)",
   },
   container: {

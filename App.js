@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   Button,
   StyleSheet,
@@ -27,15 +27,22 @@ export default function App() {
   const [selectedCategory, setSelectedCaetgory] = useState("");
   const [appVersion, setAppVersion] = useState("");
   const [adUnits, setAdUnits] = useState(false);
-  const [showAd, setShowAd] = useState(false);
+  const [adUnitPlacement, setAdUnitPlacement] = useState(4);
+  const [currentScreen, setCurrentScreen] = useState(0);
+  const prevScreenRef = useRef(0);
 
-  const bannerAdId = __DEV__ ? adUnits.devBannerId : adUnits.prodBannerId;
+  // const [showAd, setShowAd] = useState(false);
+
+  const bannerAdId = __DEV__ ? (adUnits ? adUnits.devBannerId : adUnits.prodBannerId) : "";
 
   const getDataFromStorage = async () => {
     let motData = await retrieveData(constants.MOTIVATIONAL_QUOTES);
     let adData = await retrieveData(constants.AD_UNITS);
+    let placementPosition = await retrieveData(constants.PLACEMENT_POSITION);
+
     if (adData) {
       setAdUnits(adData);
+      setAdUnitPlacement(placementPosition);
     }
     if (motData) {
       setMotivationalData(motData);
@@ -66,8 +73,8 @@ export default function App() {
     let localVersion = await retrieveData(constants.APP_VERSION);
     dbRefObj.on('value', snap => {
       let data = snap.val();
-      if(localVersion !== data.version) {
-        storeData(constants.APP_VERSION, data.version)
+      if(data && (localVersion !== data.version)) {
+        storeData(constants.APP_VERSION, data.version);
         getQuotesFromApi();
       } else {
     
@@ -81,8 +88,9 @@ export default function App() {
     let localVersion = await retrieveData(constants.AD_UNIT_VERSION);
     dbRefObj.on('value', snap => {
       let data = snap.val();
-      if(localVersion !== data.version) {
+      if(data && (localVersion !== data.version)) {
         storeData(constants.AD_UNIT_VERSION, data.version);
+        storeData(constants.PLACEMENT_POSITION, data.placementPosition);
         getAdUnitsApi();
       } else {
     
@@ -96,15 +104,14 @@ export default function App() {
     await AdMobInterstitial.setAdUnitID(interestialAdID);
     await AdMobInterstitial.requestAdAsync({ servePersonalizedAds: true });
     await AdMobInterstitial.addEventListener('interstitialDidClose', function(){
-       BackHandler.exitApp()
+
+      if(currentScreen === 0 && prevScreenRef.current === 1) {
+        prevScreenRef.current = 0;
+      } else {
+       BackHandler.exitApp();
+      }
     })
   }
-
-  // const getApiResponse = async () => {
-  //   let data = await axios.get('https://jsonmock.hackerrank.com/api/countries?page=1');
-  //   data = data && data.data;
-  //   setMotivationalData(data);
-  // }
 
   useEffect(() => {
     // clearAllData();
@@ -114,8 +121,12 @@ export default function App() {
 
     const backAction = async () => {
       try {
-        if (await AdMobInterstitial.getIsReadyAsync()) {
+        if (await AdMobInterstitial.getIsReadyAsync() && currentScreen === 0 && prevScreenRef.current === 0) {
           await AdMobInterstitial.showAdAsync()
+        } else if (currentScreen === 0 && prevScreenRef.current === 1){
+          prevScreenRef.current = 0; 
+        } else {
+          BackHandler.exitApp();
         }
       } catch (err) {
 
@@ -135,7 +146,14 @@ export default function App() {
 
   const handleCategory = (category) => {
     setSelectedCaetgory(category);
+    setCurrentScreen(1);
   };
+
+  const backPressHandlerCb = () => {
+    prevScreenRef.current = 1;
+    setCurrentScreen(0);
+    setSelectedCaetgory("");
+  }
 
   useEffect(() => {
     if (adUnits) {
@@ -161,19 +179,22 @@ export default function App() {
             data={
               motivationalData?.filter((itm) => itm.type === selectedCategory)
             }
-            onBackPress={() => setSelectedCaetgory("")}
+            onBackPress={backPressHandlerCb}
+            bannerAdId={ bannerAdId }
+            adUnits={ adUnits }
+            adUnitPlacement={ adUnitPlacement }
           />
         ) : (
           <Category onClick={handleCategory} data={motivationalData} />
         )}
       </View> : null}
-      {adUnits && <AdMobBanner
+      {(adUnits && !selectedCategory) ? <AdMobBanner
         bannerSize="fullBanner"
         adUnitID={bannerAdId}
         onDidFailToReceiveAdWithError={() => {
           alert("error");
         }}
-      />}
+      /> : null}
     </View>
   );
 }
@@ -181,7 +202,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#D32F2F"
+    backgroundColor: "#0A1931"
   },
   content: {
     flex: 15,
