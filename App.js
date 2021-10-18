@@ -192,7 +192,7 @@ export default function App() {
         bannerSize="fullBanner"
         adUnitID={bannerAdId}
         onDidFailToReceiveAdWithError={() => {
-          alert("error");
+          // alert("error");
         }}
       /> : null}
     </View>

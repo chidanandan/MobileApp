@@ -16,9 +16,6 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
-    },
     "android": {
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-9622556718664753~1993589748"
@@ -31,6 +28,9 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "ios": {
+      "bundleIdentifier": "com.chidutramp.MotivationArena"
     }
   }
 }

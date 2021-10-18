@@ -66,7 +66,7 @@ const QuotesDisplayer = ({ data, onBackPress, bannerAdId, adUnits, adUnitPlaceme
           importImg = imgArr[counter];
 
           return (
-          <View style={styles.container}>
+          <View style={styles.container} key={item.quote}>
             <ImageBackground 
             source={importImg} 
             style={styles.image}
@@ -95,7 +95,7 @@ const QuotesDisplayer = ({ data, onBackPress, bannerAdId, adUnits, adUnitPlaceme
         bannerSize="fullBanner"
         adUnitID={bannerAdId}
         onDidFailToReceiveAdWithError={() => {
-          alert("error");
+          // alert("error");
         }}
       />}
           </View>
